@@ -14,4 +14,8 @@ def test_find_leaves():
     assert t.find_leaves() == {0, 1, 2, 5}
 
 def test_find_a_diameter():
-    print("I'm not finished!")
+    sequence = [3, 3, 3, 4]
+    t = Tree(sequence)
+    set_of_all_possible_diameters = { [0, 3, 4, 5], [1, 3, 4, 5], [2, 3, 4, 5] }
+    computed_diameter = t.find_a_diameter()
+    assert computed_diameter in set_of_all_possible_diameters
