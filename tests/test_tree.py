@@ -1,3 +1,4 @@
+import context
 from tree import Tree
 import networkx as nx
 
