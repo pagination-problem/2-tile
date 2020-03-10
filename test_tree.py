@@ -11,4 +11,4 @@ def test_creation_from_prufer():
 def test_find_leaves():
     sequence = [3, 3, 3, 4]
     t = Tree(sequence)
-    assert t.find_leaves_of() == {0, 1, 2, 5}
+    assert t.find_leaves() == {0, 1, 2, 5}
