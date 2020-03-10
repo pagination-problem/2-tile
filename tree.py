@@ -26,8 +26,8 @@ class Tree(nx.Graph):
     def find_a_diameter(self):
         """
             Goal: this function finds one of the possible diameters in the tree T
-            Inputs: the tree and the length of the diameter
-            Output: a list of vertices that forms a diameter.
+            Inputs: self
+            Output: a list of vertices that forms a diameter. The order will be important
             
             Remarks: There can be several paths long enough to
                 be diameters but this function will return only one.
