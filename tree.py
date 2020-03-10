@@ -32,4 +32,4 @@ class Tree(nx.Graph):
             Remarks: There can be several paths long enough to
                 be diameters but this function will return only one.
         """
-        print("I'm nit finished!")
+        print("I'm not finished!")
