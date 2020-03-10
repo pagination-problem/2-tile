@@ -32,4 +32,16 @@ class Tree(nx.Graph):
             Remarks: There can be several paths long enough to
                 be diameters but this function will return only one.
         """
-        print("I'm not finished!")
+        length = self.tree.diameter()
+        leaves_set = self.find_leaves()
+        
+        for leaf_1 in leaves_set :
+            leaves_set_temp = set(leaves_set)
+            leaves_set_temp.remove(leaf_1)
+            for leaf_2 in leaves_set_temp :
+                path = nx.shortest_path(self.tree, leaf_1, leaf_2)
+                if len(path) == length:
+                    return path
+
+        return None #for tests
+
