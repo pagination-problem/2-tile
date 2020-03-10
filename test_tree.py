@@ -16,6 +16,13 @@ def test_find_leaves():
 def test_find_a_diameter():
     sequence = [3, 3, 3, 4]
     t = Tree(sequence)
-    set_of_all_possible_diameters = { [0, 3, 4, 5], [1, 3, 4, 5], [2, 3, 4, 5] }
+
+    set_of_all_possible_diameters = set()
+    #This trick is necessary because I cannot make a set of lists
+    # as lists are non-hashable elements.
+    a = [[0, 3, 4, 5], [1, 3, 4, 5], [2, 3, 4, 5]]
+    for i in a:
+        set_of_all_possible_diameters.add(tuple(i)) 
+
     computed_diameter = t.find_a_diameter()
     assert computed_diameter in set_of_all_possible_diameters
