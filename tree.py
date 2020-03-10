@@ -9,8 +9,10 @@ class Tree(nx.Graph):
     def __init__(self, prufer_sequence):
         T = nx.from_prufer_sequence(prufer_sequence)
         self.tree = T
-        self.nodes = set(T.nodes)
-        self.egdes = set(T.edges)
+        # self.my_nodes = set()
+        # self.my_egdes = set()
+        # self.my_nodes = (self.my_nodes).union(T.nodes)
+        # self.my_egdes = (self.my_nodes).union(T.edges)
         # self.nodes = T.nodes
         # self.egdes = T.edges
 
@@ -30,7 +32,7 @@ class Tree(nx.Graph):
             Output: a set
         """
         leaves_set = set()
-        [leaves_set.add(x) for x in self.nodes if self.degree(x) == 1]
+        [leaves_set.add(x) for x in self.tree.nodes if self.degree(x) == 1]
         return leaves_set
 
     def find_diameter_in(self, T, length):
@@ -39,6 +41,7 @@ class Tree(nx.Graph):
             Inputs: the tree and the length of the diameter
             Output: a list of vertices that forms a diameter.
             
-            There can be several diameters but this function will return only one.
+            Remarks: There can be several paths long enough to
+                be diameters but this function will return only one.
         """
         print("I'm nit finished!")
