@@ -13,7 +13,7 @@ class Tree(nx.Graph):
     def degree(self, node):
         return self.tree.degree(node)
 
-    def find_leaves_of(self):
+    def find_leaves(self):
         """
             This function put all the leaves (every node with a degree = 1) of the tree in a set
             Input: a tree
