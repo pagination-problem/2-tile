@@ -23,7 +23,7 @@ class Tree(nx.Graph):
         [leaves_set.add(x) for x in self.tree.nodes if self.degree(x) == 1]
         return leaves_set
 
-    def find_diameter_in(self, T, length):
+    def find_a_diameter(self):
         """
             Goal: this function finds one of the possible diameters in the tree T
             Inputs: the tree and the length of the diameter
