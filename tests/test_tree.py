@@ -25,4 +25,7 @@ def test_find_a_diameter():
         set_of_all_possible_diameters.add(tuple(i)) 
 
     computed_diameter = t.find_a_diameter()
+    computed_diameter = tuple(computed_diameter)
+    print(computed_diameter)
+    print(set_of_all_possible_diameters)
     assert computed_diameter in set_of_all_possible_diameters
