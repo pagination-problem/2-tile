@@ -12,3 +12,6 @@ def test_find_leaves():
     sequence = [3, 3, 3, 4]
     t = Tree(sequence)
     assert t.find_leaves() == {0, 1, 2, 5}
+
+def test_find_a_diameter():
+    print("I'm not finished!")
