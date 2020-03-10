@@ -9,21 +9,9 @@ class Tree(nx.Graph):
     def __init__(self, prufer_sequence):
         T = nx.from_prufer_sequence(prufer_sequence)
         self.tree = T
-        # self.my_nodes = set()
-        # self.my_egdes = set()
-        # self.my_nodes = (self.my_nodes).union(T.nodes)
-        # self.my_egdes = (self.my_nodes).union(T.edges)
-        # self.nodes = T.nodes
-        # self.egdes = T.edges
 
     def degree(self, node):
         return self.tree.degree(node)
-
-    # def nodes (self):
-    #     return set(self.tree.nodes)
-
-    # def edges (self):
-    #     return set(self.tree.edges)
 
     def find_leaves_of(self):
         """
