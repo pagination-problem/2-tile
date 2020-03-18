@@ -22,7 +22,7 @@ class Tree(nx.Graph):
             prufer_sequence = my_input
         elif isinstance(my_input, int):
             n = my_input
-            prufer_sequence = [random.randint(0,n) for i in range(n-2)]
+            prufer_sequence = [random.randint(0,n-1) for i in range(n-2)]
         else:
             sys.exit("Incorrect input in the creation of a Tree.")
 
