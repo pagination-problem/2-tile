@@ -4,9 +4,25 @@
 """
 
 import networkx as nx
+import random
 
 class Tree(nx.Graph):
-    def __init__(self, prufer_sequence):
+    """
+        input: a integer or a sequence of integer
+        output: initialization of a Tree
+
+        Remarks: if the input is a sequence, then it means that the user directly gives the Prufer sequence
+        describing a tree. However, if the input is an integer, it means the user wants to generate a
+        random tree. The number of nodes inside the tree is the value of the input.
+
+    """
+    def __init__(self, my_input):
+        if isinstance(my_input, list):
+            prufer_sequence = my_input
+        elif isinstance(my_input, int):
+            n = my_input
+            prufer_sequence = [random.randint(0,n) for i in range(n-2)]
+
         T = nx.from_prufer_sequence(prufer_sequence)
         self.tree = T
 
