@@ -9,6 +9,12 @@ def test_creation_from_prufer():
     assert set(t1.tree.nodes) == set(t2.nodes)
     assert set(t1.tree.edges) == set(t2.edges)
 
+def test_random_generation ():
+    n = 10
+    t = Tree(n)
+    assert len(set(t.tree.nodes)) == n
+    assert len(set(t.tree.edges)) == n-1
+
 def test_find_leaves():
     sequence = [3, 3, 3, 4]
     t = Tree(sequence)
