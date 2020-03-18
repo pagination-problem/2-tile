@@ -5,6 +5,7 @@
 
 import networkx as nx
 import random
+import sys
 
 class Tree(nx.Graph):
     """
@@ -22,6 +23,8 @@ class Tree(nx.Graph):
         elif isinstance(my_input, int):
             n = my_input
             prufer_sequence = [random.randint(0,n) for i in range(n-2)]
+        else:
+            sys.exit("Incorrect input in the creation of a Tree.")
 
         T = nx.from_prufer_sequence(prufer_sequence)
         self.tree = T
