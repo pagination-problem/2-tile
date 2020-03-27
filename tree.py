@@ -70,6 +70,18 @@ class Tree(nx.Graph):
         return None #for tests
 
     def to_cplex_input(self):
+        """
+            The mathematical model :
+
+            Min    -     sum     (x_1u)
+                       for u in V
+            st
+                    sum(x_1u)    <=    sum(x_2u)
+                    for u in V       for u in V
+
+                    x_1u + x_2v  <=   1    for all (u, v) in VxV
+                    x_1u + x_2u  <=   1    for all u in V
+        """
         # https://gist.github.com/WPettersson/287de1e739d4d7869d555fd28ac587cf
         # https://medium.com/opex-analytics/optimization-modeling-in-python-pulp-gurobi-and-cplex-83a62129807a
 
