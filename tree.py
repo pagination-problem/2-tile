@@ -89,7 +89,7 @@ class Tree(nx.Graph):
 
         problem.variables.add(names = var_names)
 
-        # Variables needed to describe the contraints:
+        # Variables needed to describe the constraints:
         constraints = list()
         constraint_senses = list()
         rhs = list()
