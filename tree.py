@@ -6,6 +6,7 @@
 import networkx as nx
 import random
 import sys
+import string
 
 class Tree(nx.Graph):
     """
@@ -27,7 +28,8 @@ class Tree(nx.Graph):
             sys.exit("Incorrect input in the creation of a Tree.")
 
         T = nx.from_prufer_sequence(prufer_sequence)
-        self.tree = T
+        d = dict(enumerate(string.ascii_lowercase, 0))
+        self.tree = nx.relabel_nodes(T, d)
 
     def degree(self, node):
         return self.tree.degree(node)
@@ -65,3 +67,4 @@ class Tree(nx.Graph):
 
         return None #for tests
 
+    
