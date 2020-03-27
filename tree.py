@@ -82,7 +82,7 @@ class Tree(nx.Graph):
         var_names = list()
         constraints = list()
 
-        # Pour chaque sommet u de l'arbre, on crée deux variables : x_1u et x_2u
+        # For each node u in the tree, we create two variables: x_1u et x_2u
         for u in self.tree.nodes():
             var_names.append("x_1"+str(u))
             var_names.append("x_2"+str(u))
