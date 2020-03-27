@@ -2,6 +2,7 @@ import context
 from tree import Tree
 import networkx as nx
 import string
+import cplex
 
 def test_creation_from_prufer():
     sequence = [3, 3, 3, 4]
@@ -30,7 +31,8 @@ def test_find_a_diameter():
     set_of_all_possible_diameters = set()
     #This trick is necessary because I cannot make a set of lists
     # as lists are non-hashable elements.
-    a = [['a', 'd', 'e', 'f'], ['b', 'd', 'e', 'f'], ['c', 'd', 'e', 'f']]
+    a = [['a', 'd', 'e', 'f'], ['b', 'd', 'e', 'f'], ['c', 'd', 'e', 'f'],
+         ['f', 'e', 'd', 'a'], ['f', 'e', 'd', 'b'], ['f', 'e', 'd', 'c']]
     for i in a:
         set_of_all_possible_diameters.add(tuple(i)) 
 
@@ -42,5 +44,8 @@ def test_find_a_diameter():
 
 def test_to_cplex_input():
     print("lauch test_to_cplex_input")
-    t = Tree(4)
+    sequence = [3, 3, 3, 4]
+    t = Tree(sequence)
+    cplex_input = t.to_cplex_input()
+    cplex_input.write("tests/my_model.lp", "lp")
     print("end of test_to_cplex_input")
