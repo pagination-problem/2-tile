@@ -81,13 +81,17 @@ class Tree(nx.Graph):
 
         var_names = list()
         constraints = list()
+        obj_coef_list = list()
 
         # For each node u in the tree, we create two variables: x_1u et x_2u
+        # At the same time, we will build the coefficient list for the objective function
         for u in self.tree.nodes():
             var_names.append("x_1"+str(u))
             var_names.append("x_2"+str(u))
+            obj_coef_list.append(-1.0)
+            obj_coef_list.append(0)
 
-        problem.variables.add(names = var_names)
+        problem.variables.add(obj = obj_coef_list, names = var_names)
 
         # Variables needed to describe the constraints:
         constraints = list()
