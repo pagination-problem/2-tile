@@ -2,4 +2,4 @@
 *.pyc
 .vscode
 __pycache__
-
+tests/petit_test.py
