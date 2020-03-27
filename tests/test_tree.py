@@ -43,9 +43,7 @@ def test_find_a_diameter():
     assert computed_diameter in set_of_all_possible_diameters
 
 def test_to_cplex_input():
-    print("lauch test_to_cplex_input")
     sequence = [3, 3, 3, 4]
     t = Tree(sequence)
     cplex_input = t.to_cplex_input()
     cplex_input.write("tests/my_model.lp", "lp")
-    print("end of test_to_cplex_input")
