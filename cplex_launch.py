@@ -20,6 +20,7 @@ import random
 MIN_NODE_NUMBER = 5
 MAX_NODE_NUMBER = 26
 
+problem_count = 0
 while(True):
     n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
     t = Tree(n)
@@ -27,7 +28,6 @@ while(True):
     cplex_input.solve()
 
     cpt = 0
-
     for u in t.tree.nodes():
         (val_1, val_2) = cplex_input.solution.get_values( ["x_1"+str(u), "x_2"+str(u)] )
 
@@ -37,8 +37,9 @@ while(True):
     OPT = cplex_input.solution.get_objective_value() + len(t.tree)
 
     if cpt > 2 or OPT > math.ceil( (len(t.tree)+1) / 2 ):
+        problem_count = problem_count + 1
         print(t.prufer_sequence)
-        name = "model_" + "-".join(str(i) for i in t.prufer_sequence)
+        name = "problematic_tree_" + str(problem_count)
         cplex_input.write("saved_models/"+name+".lp", "lp")
 
         plt.figure(figsize=(5,5))
