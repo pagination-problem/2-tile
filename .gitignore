@@ -4,3 +4,4 @@
 __pycache__
 tests/petit_test.py
 tests/cplex.log
+tests/truc.lp
