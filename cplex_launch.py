@@ -18,7 +18,7 @@ import random
 """
 
 MIN_NODE_NUMBER = 5
-MAX_NODE_NUMBER = 50
+MAX_NODE_NUMBER = 26
 
 while(True):
     n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
@@ -37,6 +37,7 @@ while(True):
     OPT = cplex_input.solution.get_objective_value() + len(t.tree)
 
     if cpt > 2 or OPT > math.ceil( (len(t.tree)+1) / 2 ):
+        print(t.prufer_sequence)
         name = "model_" + "-".join(str(i) for i in t.prufer_sequence)
         cplex_input.write("saved_models/"+name+".lp", "lp")
 
