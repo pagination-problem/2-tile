@@ -31,6 +31,7 @@ class Tree(nx.Graph):
 
         T = nx.from_prufer_sequence(prufer_sequence)
         d = dict(enumerate(string.ascii_lowercase, 0))
+        self.prufer_sequence = prufer_sequence
         self.tree = nx.relabel_nodes(T, d)
 
     def degree(self, node):
@@ -90,10 +91,14 @@ class Tree(nx.Graph):
         
         problem = cplex.Cplex()
         problem.objective.set_sense(problem.objective.sense.minimize)
+        #problem.set_problem_type(cplex.Cplex.problem_type.fixed_MILP)
 
         var_names = list()
         constraints = list()
         obj_coef_list = list()
+        var_types = list()
+        lbs = list()
+        ubs = list()
 
         # For each node u in the tree, we create two variables: x_1u et x_2u
         # At the same time, we will build the coefficient list for the objective function
@@ -102,9 +107,17 @@ class Tree(nx.Graph):
             var_names.append("x_2"+str(u))
             obj_coef_list.append(-1.0)
             obj_coef_list.append(0)
+            var_types.append(problem.variables.type.binary)
+            var_types.append(problem.variables.type.binary)
+            lbs.append(0.0)
+            lbs.append(0.0)
+            ubs.append(1.0)
+            ubs.append(1.0)
 
-        problem.variables.add(obj = obj_coef_list, names = var_names)
+        problem.variables.add(obj = obj_coef_list, lb = lbs, ub = ubs, types = var_types, names = var_names)
 
+        #problem.variables.set_types(0, problem.variables.type.binary)
+    
         # Variables needed to describe the constraints:
         constraints = list()
         constraint_senses = list()
