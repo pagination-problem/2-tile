@@ -22,4 +22,19 @@ Subject To
  c15: x_1d + x_2d <= 1
  c16: x_1e + x_2e <= 1
  c17: x_1f + x_2f <= 1
+Bounds
+ 0 <= x_1a <= 1
+ 0 <= x_2a <= 1
+ 0 <= x_1b <= 1
+ 0 <= x_2b <= 1
+ 0 <= x_1c <= 1
+ 0 <= x_2c <= 1
+ 0 <= x_1d <= 1
+ 0 <= x_2d <= 1
+ 0 <= x_1e <= 1
+ 0 <= x_2e <= 1
+ 0 <= x_1f <= 1
+ 0 <= x_2f <= 1
+Binaries
+ x_1a  x_2a  x_1b  x_2b  x_1c  x_2c  x_1d  x_2d  x_1e  x_2e  x_1f  x_2f 
 End
