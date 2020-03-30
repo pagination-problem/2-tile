@@ -1,5 +1,5 @@
 \ENCODING=ISO-8859-1
-\Problem name: 
+\Problem name: [3, 3, 3, 4]
 
 Minimize
  obj1: - x_1a - x_1b - x_1c - x_1d - x_1e - x_1f

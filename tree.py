@@ -167,5 +167,7 @@ class Tree(nx.Graph):
                                     senses = constraint_senses,
                                     rhs = rhs,)
         
+        problem.set_problem_name(str(self.prufer_sequence))
+
         return problem
 
