@@ -3,3 +3,4 @@
 .vscode
 __pycache__
 tests/petit_test.py
+tests/cplex.log
