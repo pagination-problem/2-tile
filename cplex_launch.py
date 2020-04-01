@@ -18,33 +18,45 @@ import random
 """
 
 MIN_NODE_NUMBER = 5
-MAX_NODE_NUMBER = 26
+MAX_NODE_NUMBER = 15
 
 problem_count = 0
-while(True):
-    n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
-    t = Tree(n)
-    cplex_input = t.to_cplex_input()
-    cplex_input.solve()
+input_count = 0
 
-    cpt = 0
-    for u in t.tree.nodes():
-        (val_1, val_2) = cplex_input.solution.get_values( ["x_1"+str(u), "x_2"+str(u)] )
+try:
+    while(True):
+        n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
+        t = Tree(n)
+        cplex_input = t.to_cplex_input()
+        cplex_input.solve()
 
-        if val_1 == 0 and val_2 == 0:
-            cpt = cpt + 1
+        cpt = 0
+        for u in t.tree.nodes():
+            (val_1, val_2) = cplex_input.solution.get_values( ["x_1"+str(u), "x_2"+str(u)] )
 
-    OPT = cplex_input.solution.get_objective_value() + len(t.tree)
+            if val_1 == 0 and val_2 == 0:
+                cpt = cpt + 1
 
-    if cpt > 2 or OPT > math.ceil( (len(t.tree)+1) / 2 ):
-        problem_count = problem_count + 1
-        print(t.prufer_sequence)
-        name = "problematic_tree_" + str(problem_count)
-        cplex_input.write("saved_models/"+name+".lp", "lp")
+        OPT = cplex_input.solution.get_objective_value() + len(t.tree)
 
-        plt.figure(figsize=(5,5))
-        nx.draw_networkx (t.tree)
-        plt.savefig("saved_models/"+name+".pdf")
-    else:
-        print("nope")
+        if cpt > 2 or OPT > math.ceil( (len(t.tree)+1) / 2 ):
+            problem_count = problem_count + 1
+            print(str(t.prufer_sequence))
+            name = "problematic_tree_" + str(problem_count)
+            cplex_input.write("saved_models/"+name+".lp", "lp")
+
+            plt.figure(figsize=(5,5))
+            nx.draw_networkx (t.tree)
+            plt.savefig("saved_models/"+name+".pdf")
+        else:
+            print("nope")
+            input_count = input_count + 1
+except:
+   print("Bugged occured on input number : " + str(input_count))
+   print("on input sequence: " + str(t.prufer_sequence))
+   print("Number of nodes: "+ str(n))
+
+
+
+
 
