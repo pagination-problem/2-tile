@@ -43,11 +43,11 @@ try:
             problem_count = problem_count + 1
             print(str(t.prufer_sequence))
             name = "problematic_tree_" + str(problem_count)
-            cplex_input.write("saved_models/"+name+".lp", "lp")
+            cplex_input.write("saved_trees/"+name+".lp", "lp")
 
             plt.figure(figsize=(5,5))
             nx.draw_networkx (t.tree)
-            plt.savefig("saved_models/"+name+".pdf")
+            plt.savefig("saved_trees/"+name+".pdf")
         else:
             print("nope")
             input_count = input_count + 1
