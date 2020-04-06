@@ -5,4 +5,5 @@ __pycache__
 tests/petit_test.py
 tests/cplex.log
 tests/truc.lp
+tests/sol_de_truc.sol
 saved_trees/
