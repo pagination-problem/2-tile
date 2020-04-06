@@ -5,4 +5,4 @@ __pycache__
 tests/petit_test.py
 tests/cplex.log
 tests/truc.lp
-saved_trees
+saved_trees/
