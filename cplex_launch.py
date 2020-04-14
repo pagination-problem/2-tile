@@ -84,7 +84,7 @@ wrong_UB_count = 0
 
 start = time.time()
 try:
-    for input_count in range(1,1000):
+    for input_count in range(1,100000):
         n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
         t = Tree(n)
         cplex_input = t.to_cplex_input()
