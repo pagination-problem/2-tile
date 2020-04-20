@@ -5,6 +5,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import random
 import time
+import tools_for_cplex
+import sys
 
 """
     This script generates random trees
@@ -15,7 +17,7 @@ import time
     one about the optimal value.
 
     If a tree doesn't verify one of the condition,
-    it is stored in a specific folder: saved_trees
+    it is stored in specific folders that need to be specified.
 """
 
 MIN_NODE_NUMBER = 5
@@ -75,63 +77,76 @@ def adds_a_no_good_cut_inequality(t, cplex_input, OPT):
                                     senses = constraint_senses,
                                     rhs = rhs,)
 
+def saves_a_potential_problematic_model(path, name, model, tree):
+    """
+    inputs:
+        path: relative or absolute path to the folder where we want to store the model
+        name: name that the three files will have
+        model: the model we are working on
+        tree: an networkx graph, the base of our work
 
-number_of_authorized_tries = 250
+    outputs: three files stored in path/ folder
+        name.lp: the model written in a file that cplex can read
+        name.sol: the last solution found for this model
+        .pdf: a graphic representation of the graph we are working on
+    """
+    cplex_input.write(path+name+".lp", "lp")
+
+    plt.figure(figsize=(5,5))
+    nx.draw_networkx (tree)
+    plt.savefig(path+name+".pdf")
+
+    cplex_input.solution.write(path+name+".sol")
+
+number_of_authorized_tries = 900
 problem_count = 0
-#input_count = 0
 too_many_duplicated_symbol_count = 0
 wrong_UB_count = 0
+waiting = 0
+
+wrong_ub_path = "saved_trees/petit_test/wrong_UB/"
+out_of_time_path = "saved_trees/petit_test/out_of_time/"
 
 start = time.time()
 try:
-    for input_count in range(1,100000):
+    for input_count in range(1,10000):
         n = random.randint(MIN_NODE_NUMBER, MAX_NODE_NUMBER)
         t = Tree(n)
+        
         cplex_input = t.to_cplex_input()
         cplex_input.solve()
 
+        # cpt = tools_for_cplex.checks_number_of_duplicated_symbols(t, cplex_input)
         cpt = checks_number_of_duplicated_symbols(t, cplex_input)
-        OPT = cplex_input.solution.get_objective_value() + len(t.tree)
+        OPT = cplex_input.solution.get_objective_value() + n
+
+        name = "problematic_tree_" + str(problem_count) + "_n=" + str(n)
 
         if OPT > math.ceil( (len(t.tree)) / 2 ) + 1:
+            print(f"The supposed UB is not verified for this input: {str(t.prufer_sequence)}")
+            # tools_for_cplex.saves_a_potential_problematic_model(wrong_ub_path, name, cplex_input, t.tree)
+            saves_a_potential_problematic_model(wrong_ub_path, name, cplex_input, t.tree)
+
             wrong_UB_count = wrong_UB_count + 1
             problem_count = problem_count + 1
-            print(str(t.prufer_sequence))
-            name = "problematic_tree_" + str(problem_count)
-            cplex_input.write("saved_trees/wrong_UB/"+name+".lp", "lp")
-
-            plt.figure(figsize=(5,5))
-            nx.draw_networkx (t.tree)
-            plt.savefig("saved_trees/wrong_UB/"+name+".pdf")
 
         elif cpt > 2 :
             waiting = 0
             while "The number of duplicated symbols is strictly greater than 2":
+                # tools_for_cplex.adds_a_no_good_cut_inequality(t, cplex_input, OPT)
                 adds_a_no_good_cut_inequality(t, cplex_input, OPT)
                 cplex_input.solve()
+                # cpt = tools_for_cplex.checks_number_of_duplicated_symbols(t, cplex_input)
                 cpt = checks_number_of_duplicated_symbols(t, cplex_input)
 
-                if cpt <= 2 or waiting >= 99:
+                if cpt <= 2 or waiting >= number_of_authorized_tries:
                     break
                 waiting = waiting + 1
 
-            if waiting >= 99:
-                too_many_duplicated_symbol_count = too_many_duplicated_symbol_count + 1
+            if waiting >= number_of_authorized_tries:
                 problem_count = problem_count + 1
-                print(str(t.prufer_sequence))
-                name = "problematic_tree_" + str(problem_count)
-                cplex_input.write("saved_trees/exceeded_waiting/"+name+".lp", "lp")
-
-                plt.figure(figsize=(5,5))
-                nx.draw_networkx (t.tree)
-                plt.savefig("saved_trees/exceeded_waiting/"+name+".pdf")
-
-                cplex_input.solution.write("saved_trees/exceeded_waiting/"+name+".sol")
-  
-   
-        # print(str(input_count))
-        # time.sleep(1)
-        input_count = input_count + 1
+                # tools_for_cplex.saves_a_potential_problematic_model(out_of_time_path, name, cplex_input, t.tree)
+                saves_a_potential_problematic_model(out_of_time_path, name, cplex_input, t.tree)
 
     print(str(input_count) + " were computed.")
     print(f"For {str(too_many_duplicated_symbol_count)} inputs, we could not find optimal solutions with less than 2 duplicated symbols after {number_of_authorized_tries} tries")
@@ -141,10 +156,16 @@ try:
 
 
 except:
-   print("Bugged occured on input number : " + str(input_count))
-   print("on input sequence: " + str(t.prufer_sequence))
-   print("Number of nodes: "+ str(n))
-   print("Number of already computed inputs: " + str(input_count))
+    print("Unexpected error:", sys.exc_info()[0])
+    print(f"Bugged occured on input number : {str(input_count)}")
+    print(f"on input sequence: {str(t.prufer_sequence)}")
+    print(f"Number of nodes: {str(n)}")
+    print(f"Number of already computed inputs: {str(input_count)}")
+    print(f"For {str(too_many_duplicated_symbol_count)} inputs, we could not find optimal solutions with less than 2 duplicated symbols after {number_of_authorized_tries} tries")
+    print(f"For {str(wrong_UB_count)} inputs, the UB is not verified.")
+    print(f"Last waiting was: {str(waiting)}")
+    end = time.time() - start
+    print(f"The program was running for {str(end)} seconds or {str(math.ceil(end/60))} minutes or {str(math.ceil((end/60)/60))} hours to end.")
 
 
 
