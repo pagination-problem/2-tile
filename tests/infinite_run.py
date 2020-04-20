@@ -122,12 +122,11 @@ try:
     cplex_input = t.to_cplex_input()
     cplex_input.solve()
     
-    n = len(t.tree)
     # cpt = tools_for_cplex.checks_number_of_duplicated_symbols(t, cplex_input)
     cpt = checks_number_of_duplicated_symbols(t, cplex_input)
-    OPT = cplex_input.solution.get_objective_value() + n
+    OPT = cplex_input.solution.get_objective_value() + t.n
 
-    if OPT > math.ceil( (len(t.tree)) / 2 ) + 1:
+    if OPT > math.ceil(t.n / 2 ) + 1:
         print(f"The supposed UB is not verified for this input: {str(t.prufer_sequence)}")
         # tools_for_cplex.saves_a_potential_problematic_model(wrong_ub_path, name, cplex_input, t.tree)
         saves_a_potential_problematic_model(wrong_ub_path, name, cplex_input, t.tree)
@@ -158,7 +157,7 @@ try:
 except:
    print(f"Bugged occured on input number : {str(input_count)}")
    print(f"on input sequence: {str(t.prufer_sequence)}")
-   print(f"Number of nodes: {str(n)}")
+   print(f"Number of nodes: {str(t.n)}")
    print(f"Number of already computed inputs: {str(input_count)}")
    print(f"Last waiting was: {number_of_authorized_tries}")
 
