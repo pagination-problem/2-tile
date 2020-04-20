@@ -33,6 +33,7 @@ class Tree(nx.Graph):
         d = dict(enumerate(string.ascii_lowercase, 0))
         self.prufer_sequence = prufer_sequence
         self.tree = nx.relabel_nodes(T, d)
+        self.diameter = nx.diameter(self.tree) + 1  # = number of vertices in the diameter
 
     def degree(self, node):
         return self.tree.degree(node)
@@ -56,7 +57,6 @@ class Tree(nx.Graph):
             Remarks: There can be several paths long enough to
                 be diameters but this function will return only one.
         """
-        length = nx.diameter(self.tree) #length = number of edges in the diameter
         leaves_set = self.find_leaves()
         
         for leaf_1 in leaves_set :
@@ -64,8 +64,7 @@ class Tree(nx.Graph):
             leaves_set_temp.remove(leaf_1)
             for leaf_2 in leaves_set_temp :
                 path = nx.shortest_path(self.tree, leaf_1, leaf_2)
-                if len(path) == length + 1: #len(path) = number of vertices in the list 'path'
-                                            #that's why we need the "+1"
+                if len(path) == self.diameter:
                     return path
 
         return None #for tests
