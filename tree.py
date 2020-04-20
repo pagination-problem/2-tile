@@ -23,9 +23,10 @@ class Tree(nx.Graph):
     def __init__(self, my_input):
         if isinstance(my_input, list):
             prufer_sequence = my_input
+            self.n = len (prufer_sequence) + 2
         elif isinstance(my_input, int):
-            n = my_input
-            prufer_sequence = [random.randint(0,n-1) for i in range(n-2)]
+            self.n = my_input
+            prufer_sequence = [random.randint(0,self.n-1) for i in range(self.n-2)]
         else:
             sys.exit("Incorrect input in the creation of a Tree.")
 
