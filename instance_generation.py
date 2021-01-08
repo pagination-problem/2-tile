@@ -17,7 +17,7 @@ import networkx as nx
 import json
 
 nb_instances = 100
-tailles = [25, 50, 75, 100, 200, 500, 1000]
+tailles = [25, 50, 75, 100, 200, 500, 1000] #nombre de sommets
 densites = [0.1, 0.2, 0.3, 0.4, 0.5]
 
 for nb_sommets in tailles:
@@ -29,4 +29,4 @@ for nb_sommets in tailles:
 
             with open('myfile.json', 'w', encoding ='utf8') as json_file: 
                 json.dump(d, json_file, ensure_ascii = True) 
-                json.dump(graph_in_data)
+                #json.dump(graph_in_data)
