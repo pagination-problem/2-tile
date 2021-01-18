@@ -22,7 +22,6 @@ from goodies import data_to_json
 
 def tree_generation(tailles, nb_instances, chemin_pour_stockage):
     for nb_sommets in tailles:
-            m = nb_sommets - 1
             for i in range (1, nb_instances):
                 g = nx.random_tree(nb_sommets, seed)
                 graph_for_json = dict()
@@ -53,7 +52,8 @@ def complete_generation(tailles, nb_instances, chemin_pour_stockage):
                     "edges" : list(g.edges)
                 }
 
-                with open('myfile.json', 'w', encoding ='utf8') as json_file: 
+                name = chemin_pour_stockage + graph_type + "__n=" + str(nb_sommets) + "__" + '{:03}'.format(i) + ".json"
+                with open(name, 'w', encoding ='utf8') as json_file: 
                     json_file.write(data_to_json(graph_for_json))
 
 def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
