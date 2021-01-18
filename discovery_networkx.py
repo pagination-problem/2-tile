@@ -23,9 +23,8 @@ def random_graph_generation_and_dump_in_json():
         "edges" : list(g.edges)
     }
 
-    with open('test_dumps/myfile.json', 'w', encoding ='utf8') as json_file: 
-        json.dump(graph_in_data, json_file, indent=4)
-        #I also tried: json.dump(graph_in_data, json_file, indent=4, separators=(',', ':'))
+    with open('test_dumps/bipartite_2.json', 'w', encoding ='utf8') as json_file: 
+        json_file.write(data_to_json(graph_in_data))
 
 def random_bipartite_graph_generation():
     nb_sommets = 15
