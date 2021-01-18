@@ -3,6 +3,7 @@ import random
 import networkx as nx
 from networkx.algorithms import bipartite
 from networkx.readwrite import json_graph
+import matplotlib.pyplot as plt
 
 from goodies import data_to_json
 
@@ -25,7 +26,9 @@ def random_graph_generation_and_dump_in_json():
         "edges" : list(g.edges)
     }
 
-    with open('test_dumps/random_graph.json', 'w', encoding ='utf8') as json_file: 
+    name = "test_dumps/random_graph_"+str(nb_sommets)+"_vertices.json"
+
+    with open(name, 'w', encoding ='utf8') as json_file: 
         json_file.write(data_to_json(graph_in_data))
 
 def random_bipartite_graph_generation():
@@ -130,11 +133,29 @@ def complete_bipartite_graph_generation_and_dump_in_json():
     with open('test_dumps/complete_bipartite_2.json', 'w', encoding ='utf8') as json_file: 
         json_file.write(data_to_json(graph_for_json)) # Nice indents
 
+def test_read_classic_graph_from_json():
+    with open('test_dumps/random_graph_5_vertices.json') as json_file:
+        print(json_file)
+        data = json.load(json_file)
 
+    #nodes = data[nodes]
+    print("nodes: ", data["nodes"])
+    print("edges: ", data["edges"])
+    g = nx.Graph()
+    g.add_nodes_from(data["nodes"])
+    g.add_edges_from(data["edges"])
+
+    nx.draw_networkx (g)
+    plt.savefig("Illustrations/graph_that_was_loaded.pdf")
+    plt.close()
+
+ 
 if __name__ == "__main__":
     #complete_bipartite_graph_generation_and_dump_in_json()
     #stat_connectivity()
     #test_read_graph_from_json()
-    random_graph_generation_and_dump_in_json()
-    random_bipartite_graph_generation_and_dump_in_json()
-    complete_bipartite_graph_generation_and_dump_in_json()
+    # random_graph_generation_and_dump_in_json()
+    # random_bipartite_graph_generation_and_dump_in_json()
+    # complete_bipartite_graph_generation_and_dump_in_json()
+    test_read_classic_graph_from_json()
+    
