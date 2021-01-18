@@ -96,7 +96,7 @@ def classic_generation(tailles, densites, nb_instances, chemin_pour_stockage):
                         "nodes" : sorted(g.nodes),
                         "edges" : list(g.edges)
                     }
-                    name = chemin_pour_stockage + graph_type + "_n=" + str(nb_sommets) + "_d=" + str(d) + "__" + '{:03}'.format(i) + ".json"
+                    name = chemin_pour_stockage + graph_type + "__n=" + str(nb_sommets) + "__d=" + str(d) + "__" + '{:03}'.format(i) + ".json"
                     with open(name, 'w', encoding ='utf8') as json_file: 
                         json_file.write(data_to_json(graph_for_json))
 
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     ############################################# Parameters ###############################################
     ########################################################################################################
 
-    graph_type = "tree" #Can be tree, planar, bipartite or None. If none, then an ordinary graph in generated
+    graph_type = "tree" #Can be tree, planar, bipartite or Classic (= an ordinary graph)
     seed = None
     nb_instances = 100
     tailles = [25, 50, 75, 100, 200, 500, 1000] #nombre de sommets
