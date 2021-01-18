@@ -23,7 +23,7 @@ def random_graph_generation_and_dump_in_json():
         "edges" : list(g.edges)
     }
 
-    with open('test_dumps/bipartite_2.json', 'w', encoding ='utf8') as json_file: 
+    with open('test_dumps/random_graph.json', 'w', encoding ='utf8') as json_file: 
         json_file.write(data_to_json(graph_in_data))
 
 def random_bipartite_graph_generation():
@@ -104,4 +104,6 @@ def complete_bipartite_graph_generation_and_dump_in_json():
 if __name__ == "__main__":
     #complete_bipartite_graph_generation_and_dump_in_json()
     #stat_connectivity()
-    test_read_graph_from_json()
+    #test_read_graph_from_json()
+    random_graph_generation_and_dump_in_json()
+    random_bipartite_graph_generation()
