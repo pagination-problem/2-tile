@@ -58,18 +58,21 @@ if (graph_type == "tree"):
             
 elif (graph_type == "bipartite"):
     print("bipartite")
-    N1 = random.randint(1, nb_sommets-1)
-    N2 = nb_sommets - N1
+    n1 = random.randint(1, nb_sommets-1)
+    n2 = nb_sommets - n1
     p = 0.5 ################################################## WE HAVE TO DEFINE THIS VALUE
 
     for nb_sommets in tailles:
         for i in range (1, nb_instances):
-            g = bipartite.random_graph(N1, N2, p, seed, directed=False)
+            g = bipartite.random_graph(n1, n2, p, seed, directed=False)
+            V1, V2 = bipartite.sets(g)
             graph_for_json = dict()
             graph_for_json = {
                 "seed" : seed,
                 "graph_type" : graph_type,
-                "node_count" : len(g.nodes), ################################################## A MODIFIER
+                "total_node_count" : len(g.nodes),
+                "V1_node_count" : len(V1),
+                "V2_node_count" : len(V2),
                 "edge_count" : len(list(g.edges)),
                 "nodes" : sorted(g.nodes),
                 "edges" : list(g.edges)
