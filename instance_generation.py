@@ -35,7 +35,8 @@ def tree_generation(tailles, nb_instances, chemin_pour_stockage):
                     "edges" : list(g.edges)
                 }
 
-                with open('myfile.json', 'w', encoding ='utf8') as json_file: 
+                name = chemin_pour_stockage + graph_type + "__n=" + str(nb_sommets) + "__" + '{:03}'.format(i) + ".json"
+                with open(name, 'w', encoding ='utf8') as json_file: 
                     json_file.write(data_to_json(graph_for_json))
 
 def complete_generation(tailles, nb_instances, chemin_pour_stockage):
