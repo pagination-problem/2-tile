@@ -9,3 +9,4 @@ tests/sol_de_truc.sol
 saved_trees/
 Illustrations/
 test_dumps/
+tests_python.py
