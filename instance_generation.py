@@ -55,6 +55,23 @@ if (graph_type == "tree"):
 
             with open('myfile.json', 'w', encoding ='utf8') as json_file: 
                 json_file.write(data_to_json(graph_for_json))
+
+elif (graph_type == "complete"):
+    for nb_sommets in tailles:
+        for i in range (1, nb_instances):
+            g = nx.complete_graph(nb_sommets)
+            graph_for_json = dict()
+            graph_for_json = {
+                "seed" : seed,
+                "graph_type" : graph_type,
+                "total_node_count" : len(g.nodes),
+                "edge_count" : len(list(g.edges)),
+                "nodes" : sorted(g.nodes),
+                "edges" : list(g.edges)
+            }
+
+            with open('myfile.json', 'w', encoding ='utf8') as json_file: 
+                json_file.write(data_to_json(graph_for_json))
             
 elif (graph_type == "bipartite"):
     print("bipartite")
