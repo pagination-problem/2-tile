@@ -2,6 +2,7 @@ import json
 import random
 import networkx as nx
 from networkx.algorithms import bipartite
+from networkx.readwrite import json_graph
 
 from goodies import data_to_json
 
@@ -59,6 +60,18 @@ def test_connectivity():
     g = bipartite.random_graph(n1, n2, p, seed, directed=False)
     return nx.is_connected(g)
 
+def stat_connectivity():
+    false_count = 0
+    true_count = 0
+    for i in range(1000):
+        if test_connectivity():
+            true_count = true_count + 1
+        else:
+            false_count = false_count + 1
+    
+    print("There are ", true_count ,"connected graphs => ", 100 * true_count/1000, "%.")
+    print("There are ", false_count ,"not connected graphs => ", 100 * false_count/1000, "%.")
+
 def complete_bipartite_graph_generation_and_dump_in_json():
     print("complete_bipartite_graph_generation_and_dump_in_json")
     nb_sommets = 15
@@ -87,19 +100,9 @@ def complete_bipartite_graph_generation_and_dump_in_json():
 
     with open('test_dumps/bipartite_2.json', 'w', encoding ='utf8') as json_file: 
         json_file.write(data_to_json(graph_for_json))
-    
 
 
 if __name__ == "__main__":
-    complete_bipartite_graph_generation_and_dump_in_json()
-    # false_count = 0
-    # true_count = 0
-    # for i in range(1000):
-    #     if test_connectivity():
-    #         true_count = true_count + 1
-    #     else:
-    #         false_count = false_count + 1
-    
-    # print("There are ", true_count ,"connected graphs => ", 100 * true_count/1000, "%.")
-    # print("There are ", false_count ,"not connected graphs => ", 100 * false_count/1000, "%.")
-
+    #complete_bipartite_graph_generation_and_dump_in_json()
+    #stat_connectivity()
+    test_read_graph_from_json()
