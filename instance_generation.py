@@ -18,6 +18,8 @@ import json
 from networkx.algorithms import bipartite
 import random
 
+from goodies import data_to_json
+
 ########################################################################################################
 ############################################# Parameters ###############################################
 ########################################################################################################
@@ -52,7 +54,8 @@ if (graph_type == "tree"):
             }
 
             with open('myfile.json', 'w', encoding ='utf8') as json_file: 
-                json.dump(graph_for_json, json_file, indent=4)
+                json_file.write(data_to_json(graph_for_json))
+            
 elif (graph_type == "bipartite"):
     print("bipartite")
     N1 = random.randint(1, nb_sommets-1)
@@ -73,7 +76,7 @@ elif (graph_type == "bipartite"):
             }
 
             with open('myfile.json', 'w', encoding ='utf8') as json_file: 
-                json.dump(graph_for_json, json_file, indent=4)
+                json_file.write(data_to_json(graph_for_json))
 else:
     for nb_sommets in tailles:
         for d in densites:
@@ -93,5 +96,5 @@ else:
                 }
 
                 with open('myfile.json', 'w', encoding ='utf8') as json_file: 
-                    json.dump(graph_for_json, json_file, indent=4)
+                    json_file.write(data_to_json(graph_for_json))
 
