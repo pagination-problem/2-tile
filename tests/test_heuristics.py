@@ -5,7 +5,7 @@ from heuristics import heuristic_one_and_two, heuristic_three
 
 # A graphic representation of this graph and its different solutions
 # is available in this Overlaf document :
-# or in power point.
+# or in a power point.
 
 edges = [
     (1, 2),
@@ -34,8 +34,6 @@ def test_heuristic_one():
     assert sorted(P1) == expected_M1
     assert sorted(P2) == expected_M2
     assert sorted(sep) == expected_sep
-
-    print("H1 &  H2")
 
 def test_heuristic_two():
     expected_M1 = [1, 12]
