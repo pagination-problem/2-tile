@@ -28,7 +28,8 @@ def tree_generation(tailles, nb_instances, chemin_pour_stockage):
                 graph_for_json = dict()
                 graph_for_json = {
                     "seed" : seed,
-                    "node_count" : len(g.nodes),
+                    "graph_type" : graph_type,
+                    "total_node_count" : len(g.nodes),
                     "edge_count" : len(list(g.edges)),
                     "nodes" : sorted(g.nodes),
                     "edges" : list(g.edges)
@@ -121,7 +122,8 @@ if __name__ == "__main__":
                     graph_for_json = dict()
                     graph_for_json = {
                         "seed" : seed,
-                        "node_count" : len(g.nodes),
+                        "graph_type" : graph_type,
+                        "total_node_count" : len(g.nodes),
                         "edge_count" : len(list(g.edges)),
                         "nodes" : sorted(g.nodes),
                         "edges" : list(g.edges)
