@@ -57,13 +57,18 @@ def complete_generation(tailles, nb_instances, chemin_pour_stockage):
                     json_file.write(data_to_json(graph_for_json))
 
 def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
-    n1 = random.randint(1, nb_sommets-1)
-    n2 = nb_sommets - n1
-    p = 0.5 ################################################## WE HAVE TO DEFINE THIS VALUE
+    #We need to create a dict to count the number of bipartite graphs for each density
 
     for nb_sommets in tailles:
         for i in range (1, nb_instances):
+            n1 = random.randint(1, nb_sommets-1)
+            n2 = nb_sommets - n1
+            p = 0.5 ################################################## WE HAVE TO DEFINE THIS VALUE
             g = bipartite.random_graph(n1, n2, p, seed, directed=False)
+
+            if (nx.is_connected(g) == False): #the bipartite graph is not connected, we will have to add edges
+                print("YOU STILL HAVE WORK TO DO")
+
             V1, V2 = bipartite.sets(g)
             graph_for_json = dict()
             graph_for_json = {
@@ -76,8 +81,16 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
                 "nodes" : sorted(g.nodes),
                 "edges" : list(g.edges)
             }
+            
+            #Computes the density
+            d = 0
 
-            with open('myfile.json', 'w', encoding ='utf8') as json_file: 
+            #arrondi de la densité
+
+            #Update the a counter linked to the density
+
+            name = chemin_pour_stockage + graph_type + "__n=" + str(nb_sommets) + "__d=" + str(d) + "__" + '{:03}'.format(i) + ".json"
+            with open(name, 'w', encoding ='utf8') as json_file: 
                 json_file.write(data_to_json(graph_for_json))
 
 def classic_generation(tailles, densites, nb_instances, chemin_pour_stockage):
