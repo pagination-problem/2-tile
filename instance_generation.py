@@ -58,6 +58,7 @@ def complete_generation(tailles, nb_instances, chemin_pour_stockage):
 
 def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
     #We need to create a dict to count the number of bipartite graphs for each density
+    print("!!! WORK IN PROGRESS !!!")
 
     for nb_sommets in tailles:
         for i in range (1, nb_instances):
