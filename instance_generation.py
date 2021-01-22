@@ -94,8 +94,8 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
             with open(name, 'w', encoding ='utf8') as json_file: 
                 json_file.write(data_to_json(graph_for_json))
 
-def arbitrary_generation(tailles, densites, nb_instances, chemin_pour_stockage): #arbitrary ?
-    graph_type = "classic"
+def arbitrary_generation(tailles, densites, nb_instances, chemin_pour_stockage):
+    graph_type = "arbitrary"
     for nb_sommets in tailles:
             for d in densites:
                 m = (d * nb_sommets * (nb_sommets - 1)) / 2
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     ############################################# Parameters ###############################################
     ########################################################################################################
 
-    graph_type = "arbitrary" #Can be tree, planar, bipartite or arbitrary (= a random graph)
+    graph_type = "arbitrary" #Can be tree, planar, bipartite, complete or arbitrary (= a random graph)
     nb_instances = 10
     tailles = [25, 50, 75, 100, 200, 500, 1000] #nombre de sommets
     densites = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
