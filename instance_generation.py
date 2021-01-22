@@ -137,10 +137,10 @@ if __name__ == "__main__":
     ################################################## 
 
     if (graph_type == "tree"):
-        tree_generation(tailles, nb_instances, "instances/tree")
+        tree_generation(tailles, nb_instances, "instances/tree/")
 
     elif (graph_type == "complete"):
-        complete_generation(tailles, nb_instances, "instances/complete")
+        complete_generation(tailles, nb_instances, "instances/complete/")
                 
     elif (graph_type == "bipartite"):
         bipartite_generation(tailles, nb_instances, "instances/bipartite/")
