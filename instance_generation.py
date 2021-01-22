@@ -22,7 +22,7 @@ from goodies import data_to_json
 
 def tree_generation(tailles, nb_instances, chemin_pour_stockage):
     for nb_sommets in tailles:
-            for i in range (1, nb_instances):
+            for i in range (1, nb_instances+1):
                 g = nx.random_tree(nb_sommets, i)
                 graph_for_json = dict()
                 graph_for_json = {
@@ -40,7 +40,7 @@ def tree_generation(tailles, nb_instances, chemin_pour_stockage):
 
 def complete_generation(tailles, nb_instances, chemin_pour_stockage):
     for nb_sommets in tailles:
-            for i in range (1, nb_instances):
+            for i in range (1, nb_instances+1):
                 g = nx.complete_graph(nb_sommets)
                 graph_for_json = dict()
                 graph_for_json = {
@@ -61,7 +61,7 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
     print("!!! WORK IN PROGRESS !!!")
 
     for nb_sommets in tailles:
-        for i in range (1, nb_instances):
+        for i in range (1, nb_instances+1):
             n1 = random.randint(1, nb_sommets-1)
             n2 = nb_sommets - n1
             p = 0.5 ################################################## WE HAVE TO DEFINE THIS VALUE
@@ -99,7 +99,7 @@ def arbitrary_generation(tailles, densites, nb_instances, chemin_pour_stockage):
     for nb_sommets in tailles:
             for d in densites:
                 m = (d * nb_sommets * (nb_sommets - 1)) / 2
-                for i in range (1, nb_instances):
+                for i in range (1, nb_instances+1):
                     g = nx.gnm_random_graph(nb_sommets, m, seed=i)
                     
                     graph_for_json = dict()
