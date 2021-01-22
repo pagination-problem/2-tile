@@ -36,13 +36,42 @@ def heuristic_one_and_two (g, H2):
 
     return (M1, M2, C)
 
+################################################################################################################
+# I did not write the function colorGraph, I took it from https://www.techiedelight.com/greedy-coloring-graph/ #
+# and I adapted it to fit my data structure.                                                                   #
+################################################################################################################
+def colour_graph(g):
+ 
+    # stores color assigned to each vertex
+    result = {}
+ 
+    # assign color to vertex one by one
+    for u in sorted(g.nodes):
+ 
+        # set to store color of adjacent vertices of u
+        # check colors of adjacent vertices of u and store in set
+        assigned = set([result.get(nbr) for nbr in g[u] if nbr in result])
+ 
+        # check for first free color
+        color = 1
+        for c in assigned:
+            if color != c:
+                break
+            color = color + 1
+ 
+        # assigns vertex u the first available color
+        result[u] = color
+
+    return result
+ 
+
 def heuristic_three (g):
     g_save = g.copy(False)
     M1 = set()
     M2 = set()
     C  = set ()
 
-    colours = nx.coloring.greedy_color(g_save, 'connected_sequential_bfs')
+    colours = colour_graph(g_save)
 
     counters = Counter(colours.values())
     c1 = list(counters.keys())[0]       # Most present colour in the graph
