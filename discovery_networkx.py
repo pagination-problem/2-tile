@@ -7,6 +7,23 @@ import matplotlib.pyplot as plt
 
 from goodies import data_to_json
 
+def test_remove_vertices (g):
+    g_save = g.copy(False)
+    g_save.remove_node(1)
+    g_save.remove_node(2)
+    g_save.remove_node(3)
+    g_save.remove_node(4)
+    g_save.remove_node(5)
+    nx.draw_spring(g_save, with_labels = True)
+    plt.savefig("Illustrations/my_graph_with_less_vertices.pdf")
+    plt.close()
+
+
+def test_add_vertices_to_set(g):
+    g_save = g.copy(False)
+    M1 = set()
+    M1.add(g_save.nodes[1])
+
 def random_graph_generation_and_dump_in_json():
     nb_sommets = 15
     d = 0.5
@@ -133,7 +150,7 @@ def complete_bipartite_graph_generation_and_dump_in_json():
     with open('test_dumps/complete_bipartite_2.json', 'w', encoding ='utf8') as json_file: 
         json_file.write(data_to_json(graph_for_json)) # Nice indents
 
-def test_read_classic_graph_from_json():
+def test_read_arbitrary_graph_from_json():
     with open('test_dumps/random_graph_5_vertices.json') as json_file:
         print(json_file)
         data = json.load(json_file)
