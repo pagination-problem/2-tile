@@ -48,15 +48,13 @@ def test_heuristic_two():
 
 
 def test_heuristic_three():
-    expected_M1 = [] # ? [1, 3, 5]
-    expected_M2 = [] # ? [9, 11]
-    expected_sep = [] # ? [2, 4, 6, 7, 8, 10, 12]
+    expected_M1 = [1, 3, 5]
+    expected_M2 = [7, 10, 11]
+    expected_sep = [2, 4, 6, 8, 9, 12]
 
     (P1, P2, sep) = heuristic_one_and_two(g, True)
 
     assert sorted(P1) == expected_M1
     assert sorted(P2) == expected_M2
     assert sorted(sep) == expected_sep
-
-
 
