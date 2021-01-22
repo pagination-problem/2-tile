@@ -94,7 +94,7 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
             with open(name, 'w', encoding ='utf8') as json_file: 
                 json_file.write(data_to_json(graph_for_json))
 
-def classic_generation(tailles, densites, nb_instances, chemin_pour_stockage):
+def arbitrary_generation(tailles, densites, nb_instances, chemin_pour_stockage): #arbitrary ?
     graph_type = "classic"
     for nb_sommets in tailles:
             for d in densites:
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     ############################################# Parameters ###############################################
     ########################################################################################################
 
-    graph_type = "tree" #Can be tree, planar, bipartite or Classic (= an ordinary graph)
+    graph_type = "tree" #Can be tree, planar, bipartite or arbitrary (= a random graph)
     seed = None
     nb_instances = 100
     tailles = [25, 50, 75, 100, 200, 500, 1000] #nombre de sommets
@@ -137,17 +137,17 @@ if __name__ == "__main__":
     ################################################## 
 
     if (graph_type == "tree"):
-        tree_generation(tailles, nb_instances, chemin_pour_stockage)
+        tree_generation(tailles, nb_instances, "instances/tree")
 
     elif (graph_type == "complete"):
-        complete_generation(tailles, nb_instances, chemin_pour_stockage)
+        complete_generation(tailles, nb_instances, "instances/complete")
                 
     elif (graph_type == "bipartite"):
-        bipartite_generation(tailles, nb_instances, chemin_pour_stockage)
+        bipartite_generation(tailles, nb_instances, "instances/bipartite/")
 
     elif (graph_type == "planar"):
         print("CASE: TO DO")
 
     else:
-        classic_generation(tailles, densites, nb_instances, chemin_pour_stockage)
+        arbitrary_generation(tailles, densites, nb_instances, "instances/arbitrary/")
 
