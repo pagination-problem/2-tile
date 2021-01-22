@@ -23,10 +23,10 @@ from goodies import data_to_json
 def tree_generation(tailles, nb_instances, chemin_pour_stockage):
     for nb_sommets in tailles:
             for i in range (1, nb_instances):
-                g = nx.random_tree(nb_sommets, seed)
+                g = nx.random_tree(nb_sommets, i)
                 graph_for_json = dict()
                 graph_for_json = {
-                    "seed" : seed,
+                    "seed" : i,
                     "graph_type" : graph_type,
                     "total_node_count" : len(g.nodes),
                     "edge_count" : len(list(g.edges)),
@@ -44,7 +44,7 @@ def complete_generation(tailles, nb_instances, chemin_pour_stockage):
                 g = nx.complete_graph(nb_sommets)
                 graph_for_json = dict()
                 graph_for_json = {
-                    "seed" : seed,
+                    "seed" : "None",
                     "graph_type" : graph_type,
                     "total_node_count" : len(g.nodes),
                     "edge_count" : len(list(g.edges)),
@@ -65,7 +65,7 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
             n1 = random.randint(1, nb_sommets-1)
             n2 = nb_sommets - n1
             p = 0.5 ################################################## WE HAVE TO DEFINE THIS VALUE
-            g = bipartite.random_graph(n1, n2, p, seed, directed=False)
+            g = bipartite.random_graph(n1, n2, p, i, directed=False)
 
             if (nx.is_connected(g) == False): #the bipartite graph is not connected, we will have to add edges
                 print("YOU STILL HAVE WORK TO DO")
@@ -73,7 +73,7 @@ def bipartite_generation(tailles, nb_instances, chemin_pour_stockage):
             V1, V2 = bipartite.sets(g)
             graph_for_json = dict()
             graph_for_json = {
-                "seed" : seed,
+                "seed" : i,
                 "graph_type" : graph_type,
                 "total_node_count" : len(g.nodes),
                 "V1_node_count" : len(V1),
@@ -100,11 +100,11 @@ def arbitrary_generation(tailles, densites, nb_instances, chemin_pour_stockage):
             for d in densites:
                 m = (d * nb_sommets * (nb_sommets - 1)) / 2
                 for i in range (1, nb_instances):
-                    g = nx.gnm_random_graph(nb_sommets, m, seed=None)
+                    g = nx.gnm_random_graph(nb_sommets, m, seed=i)
                     
                     graph_for_json = dict()
                     graph_for_json = {
-                        "seed" : seed,
+                        "seed" : i,
                         "graph_type" : graph_type,
                         "total_node_count" : len(g.nodes),
                         "edge_count" : len(list(g.edges)),
