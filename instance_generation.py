@@ -8,7 +8,7 @@
 # Rappel : la densité d'un graphe G=(n,m) est exprimée ainsi : d = m / ( n(n - 1) / 2 )
 # 
 # Je pense étudier en priorité les densités suivantes :
-#        densites = [0.1, 0.2, 0.3, 0.4, 0.5]
+#        densites = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 # 
 # 
 #------------------------------------------------------
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     seed = None
     nb_instances = 100
     tailles = [25, 50, 75, 100, 200, 500, 1000] #nombre de sommets
-    densites = [0.1, 0.2, 0.3, 0.4, 0.5]
+    densites = [[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     chemin_pour_stockage = "?" # Il faut qu'il termine par un "/" !!!
 
     ########################################################################################################
